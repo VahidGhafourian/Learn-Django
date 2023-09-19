@@ -1,15 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Hello</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block title %} Hello {% endblock %}
+
 {# This is comment #}
+{% block content %}
+
     {% if name == 'admin' %}
         <p>Sorry!!!</p>
     {% else %}
         <h3>hello {{ name|upper }}</h3>
     {% endif %}
-</body>
-</html>
+
+{% endblock %}
