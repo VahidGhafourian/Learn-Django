@@ -6,10 +6,6 @@ def home(request):
     all = Todo.objects.all()
     return render(request, 'home.html', {'all_todos': all})
 
-def say_hello(request):
-    person = {'name': 'vahid'}
-    return render(request, 'hello.html', context=person)
-
 
 def detail(request, todo_id):
     todo = Todo.objects.get(id=todo_id)
