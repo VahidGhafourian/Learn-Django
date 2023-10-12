@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-wbf()+cg!p6c^-bmts99@87+=!25i@!di@ng@ey*!@969ats97'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['localhost']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -130,3 +130,12 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 LOGIN_URL = '/account/login'
+
+# Email SMTP (Gmail)
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'vahidghafourianam@gmail.com'
+EMAIL_HOST_PASSWORD = 'qdsyhsvtptnalykf'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'Vahid Website'
