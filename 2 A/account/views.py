@@ -71,7 +71,8 @@ class UserProfileView(LoginRequiredMixin, View):
     def get(self, request, user_id):
         user = get_object_or_404(User, pk=user_id)
         posts = user.posts.all() # posts is that related name in home.Post model # use => Post.objects.filter(user=user)
-        return render(request, 'account/profile.html', {'user': user, 'posts': posts})
+        is_following = Relation.objects.filter(from_user=request.user, to_user=user).exists()
+        return render(request, 'account/profile.html', {'user': user, 'posts': posts, 'is_following': is_following})
 
 class UserPasswordResetView(auth_views.PasswordResetView):
     template_name = 'account/password_reset_form.html'
