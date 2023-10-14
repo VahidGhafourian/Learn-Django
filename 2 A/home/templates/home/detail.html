@@ -11,9 +11,19 @@
     <hr>
 {#    <a href="" class="card-body">{{ post.body|truncatewords:8 }}</a>#}
 
+    {% if request.user.is_authenticated %}
+        <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+            <input type="submit" value="Send">
+        </form>
+    {% else %}
+        <p class="alert alert-danger">Only logged in users can commit</p>
+    {% endif %}
+
     <p>{{ comments.count }} comments</p>
     {% for comment in comments %}
-        <div class="card bg-dark text-white">
+        <div class="card bg-dark text-white mb-2">
         <p class="card-header">{{ comment.user }} | {{ comment.created|timesince }} ago</p>
         <p class="card-body">{{ comment.body }}</p>
         </div>
