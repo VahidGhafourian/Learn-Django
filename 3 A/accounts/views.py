@@ -52,3 +52,5 @@ class UserRegisterVerifyCodeView(View):
                 messages.error(request, 'this code is wrong', 'danger')
                 return redirect('accounts:verify_code')
         return redirect('home:home')
+
+# TODO: Log in with sms
