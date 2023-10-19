@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'home.apps.HomeConfig',
     'accounts.apps.AccountsConfig',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -133,3 +134,12 @@ MEDIA_ROOT = BASE_DIR / 'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = "accounts.User"
+
+# Arvan Cloud Storage
+DEFAULT_FILE_STORAGE = "storages.backends.s3.S3Storage"
+AWS_ACCESS_KEY_ID = 'c3f4cd03-83b3-49fb-ae71-b37136250919'
+AWS_SECRET_ACCESS_KEY = '9901a020130bc9b1a55509ce3a16ffe5ffb0f046050b3d55a48d8adb6578a8b8'
+AWS_S3_ENDPOINT_URL = 'https://s3.ir-thr-at1.arvanstorage.ir'
+AWS_STORAGE_BUCKET_NAME = 'testdjangovahid'
+AWS_SERVICE_NAME = 's3'
+AWS_S3_FILE_OVERWRITE = False
