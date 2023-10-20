@@ -8,6 +8,7 @@ from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+
 class UserRegisterView(View):
     form_class = UserRegistrationForm
     template_name = 'accounts/register.html'
@@ -64,9 +65,11 @@ class UserLogoutView(LoginRequiredMixin, View):
 
 class UserLoginView(View):
     form_class = UserLoginForm
-    template_name = 'account'
+    template_name = 'accounts/login.html'
 
     def get(self, request):
+        if request.user:
+            return redirect('home:home')
         form = self.form_class
         return render(request, self.template_name, {'form': form})
 
