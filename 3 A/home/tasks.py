@@ -12,6 +12,6 @@ def delete_object_task(self, key):
     if not result:
         raise Exception()
 
-@shared_task(bind=True)
-def download_object_task(self, key):
+@shared_task()
+def download_object_task(key):
     bucket.download_object(key)
