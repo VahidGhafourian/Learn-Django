@@ -40,3 +40,25 @@ class OrderCreateView(LoginRequiredMixin, View):
             OrderItem.objects.create(order=order, product=item['product'], price=item['price'], quantity=item['quantity'])
         cart.clear()
         return redirect('orders:order_detail', order.id)
+
+class OrderPayView(LoginRequiredMixin, View):
+    def get(self, request, order_id):
+        order = Order.objects.get(id=order_id)
+        request.session['order_pay'] = {
+            'order_id': order.id
+        }
+#         TODO: Do payment
+#          Send order data to payment panel
+        return redirect('orders:order_verify')
+
+class OrderVerifyView(LoginRequiredMixin, View):
+    def get(self, request):
+        order_id = request.session['order_pay']['order_id']
+        order = Order.objects.get(id=order_id)
+        # TODO: Verify payment
+        #  if ok: check for data verify
+        #  if not ok: cancel payment.
+        order.paid = True
+        order.transaction_id = '123456789'
+        order.save()
+        return render(request, 'orders/payment_result.html', {'order': order})
