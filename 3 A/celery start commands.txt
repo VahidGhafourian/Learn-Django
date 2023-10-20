@@ -1,0 +1,2 @@
+Start celery on Windows: celery -A A worker -l info -P eventlet
+Start celery beat on Windows:  celery -A A beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler
