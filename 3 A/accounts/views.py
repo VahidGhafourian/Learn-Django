@@ -68,7 +68,7 @@ class UserLoginView(View):
     template_name = 'accounts/login.html'
 
     def get(self, request):
-        if request.user:
+        if not request.user.is_anonymous:
             return redirect('home:home')
         form = self.form_class
         return render(request, self.template_name, {'form': form})
