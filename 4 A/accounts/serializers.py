@@ -7,6 +7,7 @@ def clean_email(value):
 
 class UserRegisterSerializer(serializers.ModelSerializer):
     password2 = serializers.CharField(write_only=True, required=True)
+
     class Meta:
         model = User
 
@@ -18,6 +19,10 @@ class UserRegisterSerializer(serializers.ModelSerializer):
             'password': {'write_only': True},
             'email': {'validators': (clean_email, )}
         }
+
+    def create(self, validated_data):
+        del validated_data['password2']
+        return User.objects.create_user(**validated_data)
 
     def validate_username(self, value):
         if value == 'admin':
