@@ -56,7 +56,7 @@ class UserRegisterVerifyCodeView(View):
                 return redirect('accounts:verify_code')
         return redirect('home:home')
 
-# TODO: Log in with sms
+
 class UserLogoutView(LoginRequiredMixin, View):
     def get(self, request):
         logout(request)
