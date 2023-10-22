@@ -8,7 +8,8 @@ from permissions import IsOwnerOrReadOnly
 from rest_framework.throttling import UserRateThrottle, AnonRateThrottle
 
 class Home(APIView):
-    permission_classes = [IsAuthenticated, IsAdminUser]
+    permission_classes = [IsAuthenticated]
+
     def get(self, request):
         # data = request.query_params # get data of url afte ?
 
