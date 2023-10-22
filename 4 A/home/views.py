@@ -5,6 +5,7 @@ from .models import Person, Question, Answer
 from .serializers import PersonSerializer, QuestionSerializer, AnswerSerializer
 from rest_framework import status
 from permissions import IsOwnerOrReadOnly
+from rest_framework.throttling import UserRateThrottle, AnonRateThrottle
 
 class Home(APIView):
     permission_classes = [IsAuthenticated, IsAdminUser]
@@ -17,6 +18,8 @@ class Home(APIView):
         return Response(data=ser_data.data)
 
 class QuestionListView(APIView):
+    # throttle_classes = [UserRateThrottle, AnonRateThrottle]
+
     def get(self, request):
         question = Question.objects.all()
         ser_data = QuestionSerializer(instance=question, many=True)
