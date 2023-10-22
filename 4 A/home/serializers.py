@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Question, Answer
+from .custom_relational_fields import UserEmailNameRelationField
 
 class PersonSerializer(serializers.Serializer):
     # It isn't necessary to defile all attributes of model
@@ -10,6 +11,7 @@ class PersonSerializer(serializers.Serializer):
 
 class QuestionSerializer(serializers.ModelSerializer):
     answers = serializers.SerializerMethodField()
+    user = UserEmailNameRelationField(read_only=True)
 
     class Meta:
         model = Question
