@@ -21,11 +21,21 @@ class QuestionView(APIView):
         ser_data = QuestionSerializer(instance=question, many=True)
         return Response(ser_data.data, status=status.HTTP_200_OK)
 
-    def post(self):
-        pass
+    def post(self, request):
+        srz_data = QuestionSerializer(data=request.data)
+        if srz_data.is_valid():
+            srz_data.save()
+            return Response(srz_data.data, status=status.HTTP_201_CREATED)
+        return Response(srz_data.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def put(self):
-        pass
+    def put(self, request, pk):
+        question = Question.objects.get(pk=pk)
+        srz_data = QuestionSerializer(instance=question,data=request.data, partial=True)
+        if srz_data.is_valid():
+            srz_data.save()
+            return Response(srz_data.data, status=status.HTTP_200_OK)
+        return Response(srz_data.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def delete(self):
-        pass
+    def delete(self, request, pk):
+        Question.objects.get(pk=pk).delete()
+        return Response({'message': 'question deleted'}, status=status.HTTP_200_OK)
