@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-5_oz(nw-d8ym_$&hlod!8fe0_84l+j9l*xl&408l7i0h*#$n&-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -48,7 +48,9 @@ INSTALLED_APPS = [
     # Third-party apps
     'storages',
     'django_celery_beat',
-    'ckeditor'
+    'ckeditor',
+    'rest_framework',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -59,6 +61,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'A.urls'
@@ -166,3 +169,53 @@ CKEDITOR_CONFIGS = {
         'toolbar': 'fullc'
     },
 }
+
+
+# REST_FRAMEWORK
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.AnonRateThrottle',
+        'rest_framework.throttling.UserRateThrottle',
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '100/hour',
+        'user': '200/hour',
+    },
+
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+
+
+        # 'rest_framework.renderers.BrowsableAPIRenderer', # comment on production
+        # 'rest_framework.renderers.AdminRenderer', # comment on production
+    ],
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Shop rest',
+    'DESCRIPTION': 'Your project description',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+    # OTHER SETTINGS
+}
+
+
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",  # Replace with the actual address of your React app
+]
+
+CORS_ALLOW_METHODS = [
+    'GET',
+    'POST',
+    'PUT',
+    'PATCH',
+    'DELETE',
+    'OPTIONS',
+]
