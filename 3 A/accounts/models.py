@@ -15,7 +15,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = ['email', 'full_name'] # This is jost for createsuperuser command.
 
     def __str__(self):
-        return self.email
+        return f'{self.full_name} - {self.email} - {self.phone_number}'
 
     @property
     def is_staff(self):
