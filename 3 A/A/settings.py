@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-5_oz(nw-d8ym_$&hlod!8fe0_84l+j9l*xl&408l7i0h*#$n&-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'rest_framework',
     'corsheaders',
+    'drf_spectacular',
 ]
 
 MIDDLEWARE = [
@@ -177,32 +178,33 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
-    'DEFAULT_THROTTLE_CLASSES': [
-        'rest_framework.throttling.AnonRateThrottle',
-        'rest_framework.throttling.UserRateThrottle',
-    ],
-    'DEFAULT_THROTTLE_RATES': {
-        'anon': '100/hour',
-        'user': '200/hour',
-    },
+    # 'DEFAULT_THROTTLE_CLASSES': [
+    #     'rest_framework.throttling.AnonRateThrottle',
+    #     'rest_framework.throttling.UserRateThrottle',
+    # ],
+    # 'DEFAULT_THROTTLE_RATES': {
+    #     'anon': '100/hour',
+    #     'user': '200/hour',
+    # },
+
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,
 
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 
-    'DEFAULT_RENDERER_CLASSES': [
-        'rest_framework.renderers.JSONRenderer',
-
-
-        # 'rest_framework.renderers.BrowsableAPIRenderer', # comment on production
-        # 'rest_framework.renderers.AdminRenderer', # comment on production
-    ],
+    # 'DEFAULT_RENDERER_CLASSES': [
+    #     'rest_framework.renderers.JSONRenderer',
+    #
+    #
+    #     'rest_framework.renderers.BrowsableAPIRenderer', # comment on production
+    #     # 'rest_framework.renderers.AdminRenderer', # comment on production
+    # ],
 }
 
 SPECTACULAR_SETTINGS = {
     'TITLE': 'Shop rest',
     'DESCRIPTION': 'Your project description',
     'VERSION': '1.0.0',
-    'SERVE_INCLUDE_SCHEMA': False,
-    # OTHER SETTINGS
 }
 
 

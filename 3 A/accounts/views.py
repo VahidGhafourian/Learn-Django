@@ -11,19 +11,19 @@ from rest_framework import status
 
 class UserRegisterView(APIView):
     """
-        Method: POST
-            Use for user registration
-        inputs:
-            - phone_number: 11 digits
-            - email: at least 6 chars. max 255 chars
-            - full_name: max 255 chars
-            - password: at least 6 chars
-            - password2: at least 6 chars. must be exact password
-
-        return:
-            - success: True if user created successfully (201), then should be redirected to verify url. Otherwise return errors list (400).
-
+        Method: POST \n
+            Use for user registration \n
+        inputs: \n
+            - phone_number: 11 digits \n
+            - email: at least 6 chars. max 255 chars \n
+            - full_name: max 255 chars \n
+            - password: at least 6 chars \n
+            - password2: at least 6 chars. must be exact password \n
+        return: \n
+            - success: True if user created successfully (201), then should be redirected to verify url. Otherwise return errors list (400). \n
     """
+    serializer_class = UserRegisterSerializer
+
     def post(self, request):
         ser_data = UserRegisterSerializer(data=request.POST)
         if ser_data.is_valid():
@@ -47,14 +47,14 @@ class UserRegisterView(APIView):
 
 class UserRegisterVerifyCodeView(APIView):
     """
-        Method: POST
-            Use for confirm otp code
-        input:
-            - code: inserted otp code form user. 4 digits
-        return:
-            - success: True if user created successfully (201). Otherwise False (400).
-
+        Method: POST \n
+            Use for confirm otp code \n
+        input: \n
+            - code: inserted otp code form user. 4 digits \n
+        return: \n
+            - success: True if user created successfully (201). Otherwise False (400). \n
     """
+    serializer_class = OtpCodeSerializer
     def post(self, request, *args, **kwargs):
         user_session = request.session['user_registration_info']
         code_instance = OtpCode.objects.get(phone_number=user_session['phone_number'])
@@ -70,15 +70,15 @@ class UserRegisterVerifyCodeView(APIView):
         return Response({'success': False}, status=status.HTTP_400_BAD_REQUEST)
 
 
-class UserLogoutView(LoginRequiredMixin, APIView):
+class UserLogoutView(APIView):
     """
-        Method: GET
-            Use for user logout
-            - User must be logged in before this.
+        Method: GET \n
+            Use for user logout \n
+            - User must be logged in before this. \n
+        return: \n
+            - success: True if user successfully logged out (200). Otherwise False (400). \n
+    """
 
-        return:
-            - success: True if user successfully logged out (200). Otherwise False (400).
-    """
     def get(self, request, *args, **kwargs):
         if request.user:
             logout(request)
@@ -87,13 +87,13 @@ class UserLogoutView(LoginRequiredMixin, APIView):
 
 class UserLoginView(APIView):
     """
-        Method: POST
-            Use for user login
-        input:
-            - phone_number: 11 digits
-            - password: at least 6 chars
-        return:
-            - success: True if user successfully logged in (200). Otherwise False(401).
+        Method: POST \n
+            Use for user login \n
+        input: \n
+            - phone_number: 11 digits \n
+            - password: at least 6 chars \n
+        return: \n
+            - success: True if user successfully logged in (200). Otherwise False(401). \n
     """
     def post(self, request, *args, **kwargs):
         phone_number = request.data.get('phone_number')
