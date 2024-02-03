@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-5_oz(nw-d8ym_$&hlod!8fe0_84l+j9l*xl&408l7i0h*#$n&-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['theriseofcoffee.ir', 'localhost']
 
 
 # Application definition
@@ -94,12 +94,12 @@ WSGI_APPLICATION = 'A.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'Online_shop_django',
-        'USER': 'postgres',
-        'PASSWORD': 'admin',
-        'HOST': '127.0.0.1',
-        'PORT': '5432'
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'bookshop',
+        'USER': 'bookshopuser',
+        'PASSWORD': 'admin123',
+        'HOST': 'localhost',
+        'PORT': ''
     }
 }
 
@@ -139,6 +139,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+
+import os
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 STATICFILES_DIRS = [
     BASE_DIR / 'static'
