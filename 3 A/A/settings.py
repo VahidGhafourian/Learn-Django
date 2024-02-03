@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     'django_celery_beat',
     'ckeditor',
     'rest_framework',
-    'corsheaders',
+    'corsheaders',  
     'drf_spectacular',
 ]
 
@@ -211,6 +211,7 @@ SPECTACULAR_SETTINGS = {
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",  # Replace with the actual address of your React app
+    "http://localhost:3000",  # Replace with the actual address of your React app
 ]
 
 CORS_ALLOW_METHODS = [

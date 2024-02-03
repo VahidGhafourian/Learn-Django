@@ -10,12 +10,28 @@ from django.contrib import messages
 
 
 class CartView(View):
+    """
+        Method: Get \n
+
+        input: \n
+
+        return: \n
+
+    """
     def get(self, request):
         cart = Cart(request)
         return render(request, 'orders/cart.html', {'cart': cart})
 
 
 class CartAddView(View):
+    """
+        Method: Get \n
+
+        input: \n
+
+        return: \n
+
+    """
     def post(self, request, product_id):
         cart = Cart(request)
         product = get_object_or_404(Product, id=product_id)
@@ -26,6 +42,14 @@ class CartAddView(View):
 
 
 class CartRemoveView(View):
+    """
+        Method: Get \n
+
+        input: \n
+
+        return: \n
+
+    """
     def get(self, request, product_id):
         cart = Cart(request)
         product = get_object_or_404(Product, id=product_id)
@@ -34,6 +58,14 @@ class CartRemoveView(View):
 
 
 class OrderDetailView(LoginRequiredMixin, View):
+    """
+        Method: Get \n
+
+        input: \n
+
+        return: \n
+
+    """
     form_class = CouponApplyForm
 
     def get(self, request, order_id):
@@ -42,6 +74,14 @@ class OrderDetailView(LoginRequiredMixin, View):
 
 
 class OrderCreateView(LoginRequiredMixin, View):
+    """
+        Method: Get \n
+
+        input: \n
+
+        return: \n
+
+    """
     def get(self, request):
         cart = Cart(request)
         order = Order.objects.create(user=request.user)
@@ -70,7 +110,7 @@ class OrderVerifyView(LoginRequiredMixin, View):
         #  if ok: check for data verify
         #  if not ok: cancel payment.
         order.paid = True
-        order.transaction_id = '124456789'
+        order.transaction_id = '124876789'
         order.save()
         return render(request, 'orders/payment_result.html', {'order': order})
 

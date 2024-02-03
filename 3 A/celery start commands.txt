@@ -1,3 +1,3 @@
 Start celery on Windows: celery -A A worker -l info -P eventlet
 Start celery beat on Windows:  celery -A A beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler
-Start rabbitmq on window. open power shell: cd C:\Program Files\RabbitMQ Server\rabbitmq_server-3.12.7\sbin> | Run: .\rabbitmq-server.bat [stop | start | remove | install | restart]
+Start rabbitmq on window. open power shell: cd "C:\Program Files\RabbitMQ Server\rabbitmq_server-3.12.7\sbin" > | Run: .\rabbitmq-server.bat [stop | start | remove | install | restart]

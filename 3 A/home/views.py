@@ -5,12 +5,20 @@ from .models import Product, Category
 from . import tasks
 from django.contrib import messages
 from utils import IsAdminUserMixin
-from orders.forms import CartAddForm
 from rest_framework.views import APIView
 from .serializers import ProductSerializer, CategorySerializer
 from rest_framework import status
 
 class HomeView(APIView):
+    """
+        Method: Get \n
+            Get all list of products (for a category)
+        input: \n
+            optional: category_slug
+        return: \n
+            list of products (for a category)
+
+    """
     def get(self, request, category_slug=None):
         products = Product.objects.filter(available=True)
         categories = Category.objects.filter(is_sub=False)
@@ -24,6 +32,15 @@ class HomeView(APIView):
                               'category': categories.data,}, status=status.HTTP_200_OK)
 
 class ProductDetailView(APIView):
+    """
+        Method: Get \n
+
+        input: \n
+
+        return: \n
+
+
+    """
     def get(self, request, slug):
         product = get_object_or_404(Product, slug=slug)
         # form = CartAddForm()
@@ -33,6 +50,14 @@ class ProductDetailView(APIView):
         return Response(data={'product': product.data}, status=status.HTTP_200_OK)
 
 class BucketHome(IsAdminUserMixin, View):
+    """
+        Method: Get \n
+
+        input: \n
+
+        return: \n
+
+    """
     template_name = 'home/bucket.html'
 
     def get(self, request):
@@ -41,6 +66,14 @@ class BucketHome(IsAdminUserMixin, View):
         return render(request, self.template_name, {'objects': objects})
 
 class DeleteBucketObjectView(IsAdminUserMixin, View):
+    """
+        Method: Get \n
+
+        input: \n
+
+        return: \n
+
+    """
     def get(self, request, key):
         print(key)
         tasks.delete_object_task.delay(key)
@@ -48,6 +81,14 @@ class DeleteBucketObjectView(IsAdminUserMixin, View):
         return redirect('home:bucket')
 
 class DownloadBucketObjectView(IsAdminUserMixin, View):
+    """
+        Method: Get \n
+
+        input: \n
+
+        return: \n
+
+    """
     def get(self, request, key):
         tasks.download_object_task.delay(key)
         messages.success(request, 'your donwload will start soon', 'info')
